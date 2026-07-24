@@ -1,0 +1,816 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aurora Club</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --card-soft: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --brand: #a78bfa;
+      --brand-2: #38bdf8;
+      --danger: #ef4444;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --border: #334155;
+      --shadow: rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(167, 139, 250, 0.25), transparent 28%),
+        radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.18), transparent 32%),
+        linear-gradient(135deg, #020617, var(--bg));
+    }
+
+    header,
+    main,
+    footer {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 28px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      font-size: 1.25rem;
+    }
+
+    .logo-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.25);
+    }
+
+    nav {
+      display: flex;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    main {
+      padding: 28px 0 56px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 7px 12px;
+      border: 1px solid rgba(167, 139, 250, 0.35);
+      border-radius: 999px;
+      background: rgba(167, 139, 250, 0.11);
+      color: #ddd6fe;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(2.4rem, 6vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.07em;
+    }
+
+    .hero p {
+      max-width: 620px;
+      margin: 0 0 26px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 1.08rem;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .feature {
+      border: 1px solid var(--border);
+      background: rgba(17, 24, 39, 0.7);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 16px 45px var(--shadow);
+    }
+
+    .feature strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .feature span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      background: rgba(17, 24, 39, 0.86);
+      border-radius: 28px;
+      box-shadow: 0 24px 80px var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+    }
+
+    .card-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(31, 41, 55, 0.55);
+    }
+
+    .card-header h2 {
+      margin: 0 0 8px;
+      font-size: 1.55rem;
+    }
+
+    .card-header p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .card-body {
+      padding: 24px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 650;
+    }
+
+    input,
+    select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 13px 14px;
+      background: #020617;
+      color: var(--text);
+      outline: none;
+      font: inherit;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--brand-2);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.12);
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 14px;
+      padding: 13px 16px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #020617;
+      font-weight: 900;
+      cursor: pointer;
+      font: inherit;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+
+    button.secondary {
+      background: #334155;
+      color: var(--text);
+      margin-top: 10px;
+    }
+
+    .message {
+      margin-top: 14px;
+      min-height: 48px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 13px 14px;
+      background: rgba(2, 6, 23, 0.65);
+      color: var(--muted);
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+
+    .message.error {
+      border-color: rgba(239, 68, 68, 0.55);
+      background: rgba(127, 29, 29, 0.22);
+      color: #fecaca;
+    }
+
+    .message.success {
+      border-color: rgba(34, 197, 94, 0.55);
+      background: rgba(22, 101, 52, 0.22);
+      color: #bbf7d0;
+    }
+
+    .profile,
+    .vip-panel,
+    .vip-content,
+    .admin-content,
+    .promo-content {
+      display: none;
+    }
+
+    .profile,
+    .vip-content,
+    .admin-content,
+    .promo-content {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(31, 41, 55, 0.55);
+      border: 1px solid var(--border);
+    }
+
+    .vip-content {
+      border-color: rgba(167, 139, 250, 0.45);
+      background: rgba(88, 28, 135, 0.18);
+    }
+
+    .admin-content {
+      border-color: rgba(239, 68, 68, 0.45);
+      background: rgba(127, 29, 29, 0.18);
+    }
+
+    .promo-content {
+      border-color: rgba(245, 158, 11, 0.45);
+      background: rgba(120, 53, 15, 0.18);
+    }
+
+    .profile strong,
+    .vip-content strong,
+    .admin-content strong,
+    .promo-content strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .profile span,
+    .vip-content span,
+    .admin-content span,
+    .promo-content span {
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    footer {
+      padding: 0 0 32px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 860px) {
+      main {
+        grid-template-columns: 1fr;
+        padding-top: 8px;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!--
+    ============================================================
+    AURORA CLUB - DEMO LOCAL
+    ============================================================
+
+    Credenciales normales:
+    usuario: alex       password: aurora2025
+    usuario: luna       password: moonlight88
+    usuario: marco      password: verano2024
+    usuario: sara       password: memberpass
+    usuario: nico       password: clubnico77
+    usuario: iris       password: iris-access-19
+
+    Credenciales staff:
+    usuario: staff      password: staff-panel-2468
+    usuario: manager    password: manager-aurora-9090
+
+    Credenciales admin demo:
+    usuario: admin      password: admin-demo-0000
+
+    Códigos VIP:
+    AURORA-VIP-7731
+    SILVER-VIP-2044
+    GOLD-VIP-9912
+    BLACK-VIP-8080
+    NIGHT-VIP-5501
+    PRIVATE-VIP-6620
+    EVENT-VIP-1313
+    BACKSTAGE-VIP-4729
+
+    Códigos promo:
+    PROMO-FREE-2025
+    PROMO-2X1-7788
+    PROMO-DINNER-9191
+    PROMO-ACCESS-4242
+    PROMO-SECRET-6006
+
+    Códigos admin:
+    ADMIN-OVERRIDE-3141
+    STAFF-AREA-2718
+    MANAGER-ZONE-1618
+
+    Fake API keys de práctica:
+    pk_demo_aurora_7a91b22f0c1d
+    sk_demo_aurora_88f1c331aa09
+    mail_demo_key_4f9d72c1e8b0
+    maps_demo_token_91ac27ef001d
+    analytics_demo_0xAURORA2025
+
+    Nota:
+    Todos estos datos son FALSOS y están expuestos intencionadamente
+    para practicar revisión de código fuente en una web local.
+  -->
+
+  <header>
+    <div class="logo" aria-label="Aurora Club">
+      <div class="logo-mark" aria-hidden="true"></div>
+      <span>Aurora Club</span>
+    </div>
+
+    <nav aria-label="Navegación principal">
+      <span>Eventos</span>
+      <span>Experiencias</span>
+      <span>Miembros</span>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <span class="eyebrow">Acceso privado para miembros</span>
+      <h1>Eventos premium en tu ciudad.</h1>
+      <p>
+        Aurora Club es una comunidad ficticia para reservar experiencias, eventos privados
+        y contenido exclusivo para miembros registrados.
+      </p>
+
+      <div class="features">
+        <div class="feature">
+          <strong>Agenda privada</strong>
+          <span>Encuentros seleccionados con plazas limitadas.</span>
+        </div>
+        <div class="feature">
+          <strong>Zona VIP</strong>
+          <span>Beneficios desbloqueables con código de invitación.</span>
+        </div>
+        <div class="feature">
+          <strong>Promos ocultas</strong>
+          <span>Descuentos especiales para miembros que encuentren códigos válidos.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" aria-label="Área de acceso">
+      <div class="card-header">
+        <h2 id="panelTitle">Iniciar sesión</h2>
+        <p id="panelDescription">
+          Accede con tu cuenta de miembro para gestionar tus reservas y beneficios.
+        </p>
+      </div>
+
+      <div class="card-body">
+        <form id="loginForm" autocomplete="off" novalidate>
+          <div class="field">
+            <label for="username">Usuario</label>
+            <input id="username" name="username" type="text" maxlength="32" placeholder="Tu usuario" />
+          </div>
+
+          <div class="field">
+            <label for="password">Contraseña</label>
+            <input id="password" name="password" type="password" maxlength="64" placeholder="Tu contraseña" />
+          </div>
+
+          <button type="submit">Entrar</button>
+        </form>
+
+        <div class="profile" id="profileBox">
+          <strong>Sesión iniciada</strong>
+          <span id="profileText"></span>
+        </div>
+
+        <form id="codeForm" class="vip-panel" autocomplete="off" novalidate>
+          <div class="field">
+            <label for="codeType">Tipo de código</label>
+            <select id="codeType" name="codeType">
+              <option value="vip">Código VIP</option>
+              <option value="promo">Código promo</option>
+              <option value="admin">Código staff/admin</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="accessCode">Código</label>
+            <input id="accessCode" name="accessCode" type="text" maxlength="40" placeholder="Ejemplo: AURORA-VIP-0000" />
+          </div>
+
+          <button type="submit">Validar código</button>
+          <button type="button" class="secondary" id="logoutButton">Cerrar sesión</button>
+        </form>
+
+        <div class="vip-content" id="vipContent">
+          <strong>Zona VIP desbloqueada</strong>
+          <span>Acceso concedido a preventas, eventos privados y experiencias premium.</span>
+        </div>
+
+        <div class="promo-content" id="promoContent">
+          <strong>Promo activada</strong>
+          <span>Descuento ficticio aplicado correctamente a tu cuenta de miembro.</span>
+        </div>
+
+        <div class="admin-content" id="adminContent">
+          <strong>Panel staff/admin desbloqueado</strong>
+          <span>Área ficticia de gestión interna visible solo con códigos especiales de demo.</span>
+        </div>
+
+        <div class="message" id="messageBox" role="status" aria-live="polite">
+          Introduce tus credenciales para continuar.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Web ficticia de práctica local. No introduzcas contraseñas reales.
+  </footer>
+
+  <script>
+    "use strict";
+
+    /*
+      ============================================================
+      BLOQUE DE DATOS EXPUESTOS INTENCIONADAMENTE
+      ============================================================
+      En una web real, nada de esto debería estar en frontend.
+      Aquí está adrede para practicar búsqueda en código fuente.
+    */
+
+    const DEMO_USERS = Object.freeze([
+      {
+        username: "alex",
+        password: "aurora2025",
+        displayName: "Alex Rivera",
+        membership: "Gold",
+        role: "member"
+      },
+      {
+        username: "luna",
+        password: "moonlight88",
+        displayName: "Luna Torres",
+        membership: "Silver",
+        role: "member"
+      },
+      {
+        username: "marco",
+        password: "verano2024",
+        displayName: "Marco Vidal",
+        membership: "Bronze",
+        role: "member"
+      },
+      {
+        username: "sara",
+        password: "memberpass",
+        displayName: "Sara Costa",
+        membership: "Gold",
+        role: "member"
+      },
+      {
+        username: "nico",
+        password: "clubnico77",
+        displayName: "Nico Martín",
+        membership: "Silver",
+        role: "member"
+      },
+      {
+        username: "iris",
+        password: "iris-access-19",
+        displayName: "Iris León",
+        membership: "Black",
+        role: "member"
+      },
+      {
+        username: "staff",
+        password: "staff-panel-2468",
+        displayName: "Staff Aurora",
+        membership: "Internal",
+        role: "staff"
+      },
+      {
+        username: "manager",
+        password: "manager-aurora-9090",
+        displayName: "Manager Aurora",
+        membership: "Internal",
+        role: "manager"
+      },
+      {
+        username: "admin",
+        password: "admin-demo-0000",
+        displayName: "Admin Demo",
+        membership: "Internal",
+        role: "admin"
+      }
+    ]);
+
+    const DEMO_CODES = Object.freeze({
+      vip: [
+        "AURORA-VIP-7731",
+        "SILVER-VIP-2044",
+        "GOLD-VIP-9912",
+        "BLACK-VIP-8080",
+        "NIGHT-VIP-5501",
+        "PRIVATE-VIP-6620",
+        "EVENT-VIP-1313",
+        "BACKSTAGE-VIP-4729"
+      ],
+      promo: [
+        "PROMO-FREE-2025",
+        "PROMO-2X1-7788",
+        "PROMO-DINNER-9191",
+        "PROMO-ACCESS-4242",
+        "PROMO-SECRET-6006"
+      ],
+      admin: [
+        "ADMIN-OVERRIDE-3141",
+        "STAFF-AREA-2718",
+        "MANAGER-ZONE-1618"
+      ]
+    });
+
+    const FAKE_PUBLIC_CONFIG = Object.freeze({
+      appName: "Aurora Club",
+      environment: "demo",
+      apiBaseUrl: "https://api.demo.local/aurora",
+      stripePublicKey: "pk_demo_aurora_7a91b22f0c1d",
+      stripeSecretKeyDemo: "sk_demo_aurora_88f1c331aa09",
+      mailProviderKeyDemo: "mail_demo_key_4f9d72c1e8b0",
+      mapsTokenDemo: "maps_demo_token_91ac27ef001d",
+      analyticsTokenDemo: "analytics_demo_0xAURORA2025",
+      backupAccessTokenDemo: "backup_demo_token_5d1c8e74aa90",
+      webhookSecretDemo: "whsec_demo_aurora_abc123xyz789",
+      internalBuildKeyDemo: "build_demo_key_AURORA_INTERNAL_2025"
+    });
+
+    const session = {
+      authenticated: false,
+      currentUser: null,
+      vipUnlocked: false,
+      promoUnlocked: false,
+      adminUnlocked: false
+    };
+
+    const elements = {
+      panelTitle: document.getElementById("panelTitle"),
+      panelDescription: document.getElementById("panelDescription"),
+      loginForm: document.getElementById("loginForm"),
+      codeForm: document.getElementById("codeForm"),
+      username: document.getElementById("username"),
+      password: document.getElementById("password"),
+      codeType: document.getElementById("codeType"),
+      accessCode: document.getElementById("accessCode"),
+      messageBox: document.getElementById("messageBox"),
+      profileBox: document.getElementById("profileBox"),
+      profileText: document.getElementById("profileText"),
+      vipContent: document.getElementById("vipContent"),
+      promoContent: document.getElementById("promoContent"),
+      adminContent: document.getElementById("adminContent"),
+      logoutButton: document.getElementById("logoutButton")
+    };
+
+    function setMessage(text, type = "neutral") {
+      elements.messageBox.textContent = text;
+      elements.messageBox.className = "message";
+
+      if (type === "error") {
+        elements.messageBox.classList.add("error");
+      }
+
+      if (type === "success") {
+        elements.messageBox.classList.add("success");
+      }
+    }
+
+    function sanitizeText(value) {
+      return String(value ?? "").trim();
+    }
+
+    function isValidLoginInput(username, password) {
+      return username.length >= 2
+        && username.length <= 32
+        && password.length >= 6
+        && password.length <= 64;
+    }
+
+    function isValidCodeInput(code) {
+      return /^[A-Z0-9-]{8,40}$/.test(code);
+    }
+
+    function findUser(username, password) {
+      return DEMO_USERS.find((user) => {
+        return user.username === username && user.password === password;
+      }) ?? null;
+    }
+
+    function hasAdminPrivileges(user) {
+      if (!user) {
+        return false;
+      }
+
+      return user.role === "admin" || user.role === "manager" || user.role === "staff";
+    }
+
+    function renderAuthenticatedView() {
+      const user = session.currentUser;
+
+      if (!user) {
+        renderLoggedOutView();
+        return;
+      }
+
+      elements.loginForm.style.display = "none";
+      elements.codeForm.style.display = "block";
+      elements.profileBox.style.display = "block";
+
+      elements.panelTitle.textContent = "Área de miembro";
+      elements.panelDescription.textContent = "Introduce códigos encontrados para desbloquear secciones.";
+      elements.profileText.textContent = `${user.displayName} · Membresía ${user.membership} · Rol ${user.role}`;
+
+      elements.vipContent.style.display = session.vipUnlocked ? "block" : "none";
+      elements.promoContent.style.display = session.promoUnlocked ? "block" : "none";
+      elements.adminContent.style.display = session.adminUnlocked ? "block" : "none";
+    }
+
+    function renderLoggedOutView() {
+      elements.loginForm.style.display = "block";
+      elements.codeForm.style.display = "none";
+      elements.profileBox.style.display = "none";
+      elements.vipContent.style.display = "none";
+      elements.promoContent.style.display = "none";
+      elements.adminContent.style.display = "none";
+
+      elements.panelTitle.textContent = "Iniciar sesión";
+      elements.panelDescription.textContent = "Accede con tu cuenta de miembro para gestionar tus reservas y beneficios.";
+      elements.username.value = "";
+      elements.password.value = "";
+      elements.accessCode.value = "";
+
+      setMessage("Introduce tus credenciales para continuar.");
+    }
+
+    function handleLogin(event) {
+      event.preventDefault();
+
+      try {
+        const username = sanitizeText(elements.username.value);
+        const password = sanitizeText(elements.password.value);
+
+        if (!isValidLoginInput(username, password)) {
+          setMessage("Usuario o contraseña con formato inválido.", "error");
+          return;
+        }
+
+        const user = findUser(username, password);
+
+        if (!user) {
+          setMessage("Credenciales incorrectas.", "error");
+          return;
+        }
+
+        session.authenticated = true;
+        session.currentUser = user;
+        session.vipUnlocked = false;
+        session.promoUnlocked = false;
+        session.adminUnlocked = false;
+
+        renderAuthenticatedView();
+        setMessage("Login correcto. Ahora puedes validar códigos VIP, promo o staff/admin.", "success");
+      } catch (error) {
+        setMessage("Ha ocurrido un error inesperado al iniciar sesión.", "error");
+      }
+    }
+
+    function handleCodeValidation(event) {
+      event.preventDefault();
+
+      try {
+        if (!session.authenticated || !session.currentUser) {
+          setMessage("Debes iniciar sesión antes de validar códigos.", "error");
+          return;
+        }
+
+        const type = sanitizeText(elements.codeType.value);
+        const code = sanitizeText(elements.accessCode.value).toUpperCase();
+
+        if (!Object.hasOwn(DEMO_CODES, type)) {
+          setMessage("Tipo de código inválido.", "error");
+          return;
+        }
+
+        if (!isValidCodeInput(code)) {
+          setMessage("El código tiene un formato inválido.", "error");
+          return;
+        }
+
+        const isCodeValid = DEMO_CODES[type].includes(code);
+
+        if (!isCodeValid) {
+          setMessage("Código incorrecto.", "error");
+          return;
+        }
+
+        if (type === "vip") {
+          session.vipUnlocked = true;
+          renderAuthenticatedView();
+          setMessage("Código VIP aceptado. Zona VIP desbloqueada.", "success");
+          return;
+        }
+
+        if (type === "promo") {
+          session.promoUnlocked = true;
+          renderAuthenticatedView();
+          setMessage("Código promo aceptado. Promo desbloqueada.", "success");
+          return;
+        }
+
+        if (type === "admin") {
+          if (!hasAdminPrivileges(session.currentUser)) {
+            setMessage("Código válido, pero tu usuario no tiene rol staff/admin.", "error");
+            return;
+          }
+
+          session.adminUnlocked = true;
+          renderAuthenticatedView();
+          setMessage("Código staff/admin aceptado. Panel interno desbloqueado.", "success");
+          return;
+        }
+
+        setMessage("No se pudo procesar el código.", "error");
+      } catch (error) {
+        setMessage("Ha ocurrido un error inesperado al validar el código.", "error");
+      }
+    }
+
+    function handleLogout() {
+      session.authenticated = false;
+      session.currentUser = null;
+      session.vipUnlocked = false;
+      session.promoUnlocked = false;
+      session.adminUnlocked = false;
+      renderLoggedOutView();
+    }
+
+    elements.loginForm.addEventListener("submit", handleLogin);
+    elements.codeForm.addEventListener("submit", handleCodeValidation);
+    elements.logoutButton.addEventListener("click", handleLogout);
+
+    renderLoggedOutView();
+  </script>
+</body>
+</html>
